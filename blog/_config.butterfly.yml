@@ -51,7 +51,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://avatars.githubusercontent.com/u/97382583?s=400&u=09b294ea12fd6e13ca559bbab19a7e303ae30882&v=4
+index_img: https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:
