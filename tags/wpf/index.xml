@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WPF on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/wpf/</link>
+    <description>Recent content in WPF on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>cn</language>
+    <lastBuildDate>Sat, 11 Jan 2025 20:03:57 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/wpf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WPF程序的两种启动方式</title>
+      <link>http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Sat, 11 Jan 2025 20:03:57 +0800</pubDate>
+      <guid>http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/</guid>
+      <description>&lt;h2 id=&#34;默认启动方式&#34;&gt;默认启动方式&lt;/h2&gt;&#xA;&lt;p&gt;新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;App.xaml&#xA;&lt;ol&gt;&#xA;&lt;li&gt;App.cs&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;MainWindow.xaml&#xA;&lt;ol&gt;&#xA;&lt;li&gt;MainWindow.cs&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？&lt;/p&gt;&#xA;&lt;p&gt;通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
