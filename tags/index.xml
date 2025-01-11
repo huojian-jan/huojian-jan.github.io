@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>cn</language>
+    <lastBuildDate>Sun, 29 Dec 2024 20:03:57 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WPF</title>
+      <link>http://localhost:1313/tags/wpf/</link>
+      <pubDate>Sun, 29 Dec 2024 20:03:57 +0800</pubDate>
+      <guid>http://localhost:1313/tags/wpf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RPA</title>
+      <link>http://localhost:1313/tags/rpa/</link>
+      <pubDate>Sun, 15 Dec 2024 19:33:52 +0800</pubDate>
+      <guid>http://localhost:1313/tags/rpa/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>币圈</title>
+      <link>http://localhost:1313/tags/%E5%B8%81%E5%9C%88/</link>
+      <pubDate>Sat, 07 Dec 2024 19:25:05 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E5%B8%81%E5%9C%88/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>投资</title>
+      <link>http://localhost:1313/tags/%E6%8A%95%E8%B5%84/</link>
+      <pubDate>Sat, 07 Dec 2024 19:25:05 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E6%8A%95%E8%B5%84/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
