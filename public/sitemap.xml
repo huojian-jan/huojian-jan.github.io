@@ -3,35 +3,14 @@
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-01-11T18:34:24+08:00</lastmod>
+    <lastmod>2025-01-11T10:03:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2025-01-11T18:34:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/test3/</loc>
-    <lastmod>2025-01-11T18:34:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/test2/</loc>
-    <lastmod>2025-01-11T18:30:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/test1/</loc>
-    <lastmod>2025-01-11T18:27:51+08:00</lastmod>
+    <lastmod>2025-01-11T10:03:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
