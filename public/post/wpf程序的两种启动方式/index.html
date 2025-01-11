@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>WPF程序的两种启动方式 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="默认启动方式 新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：
+App.xaml App.cs MainWindow.xaml MainWindow.cs 创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？
+通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：
+" /><meta name="keywords" content="火箭的博客, WPF技术, 编程" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.140.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="WPF程序的两种启动方式">
+  <meta property="og:description" content="默认启动方式 新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：
+App.xaml App.cs MainWindow.xaml MainWindow.cs 创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？
+通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：">
+  <meta property="og:locale" content="cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-12-29T20:03:57+08:00">
+    <meta property="article:modified_time" content="2024-12-29T20:03:57+08:00">
+    <meta property="article:tag" content="WPF">
+
+  <meta itemprop="name" content="WPF程序的两种启动方式">
+  <meta itemprop="description" content="默认启动方式 新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：
+App.xaml App.cs MainWindow.xaml MainWindow.cs 创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？
+通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：">
+  <meta itemprop="datePublished" content="2024-12-29T20:03:57+08:00">
+  <meta itemprop="dateModified" content="2024-12-29T20:03:57+08:00">
+  <meta itemprop="wordCount" content="685">
+  <meta itemprop="keywords" content="WPF">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WPF程序的两种启动方式">
+  <meta name="twitter:description" content="默认启动方式 新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：
+App.xaml App.cs MainWindow.xaml MainWindow.cs 创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？
+通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">火箭的博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">火箭的博客</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">WPF程序的两种启动方式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2024-12-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"> 技术博客 </a>
+            </div>
+          <span class="more-meta"> 约 685 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="默认启动方式">默认启动方式</h2>
+<p>新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：</p>
+<ol>
+<li>App.xaml
+<ol>
+<li>App.cs</li>
+</ol>
+</li>
+<li>MainWindow.xaml
+<ol>
+<li>MainWindow.cs</li>
+</ol>
+</li>
+</ol>
+<p>创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？</p>
+<p>通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">WpfApp1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// App 类</span>
+</span></span><span class="line"><span class="cl">    <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">partial</span> <span class="k">class</span> <span class="nc">App</span> <span class="p">:</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Application</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// InitializeComponent 方法</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [System.Diagnostics.DebuggerNonUserCodeAttribute()]</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [System.CodeDom.Compiler.GeneratedCodeAttribute(&#34;PresentationBuildTasks&#34;, &#34;8.0.5.0&#34;)]</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="k">void</span> <span class="n">InitializeComponent</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">#line</span> <span class="m">5</span> <span class="s">&#34;..\..\..\App.xaml&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="n">StartupUri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Uri</span><span class="p">(</span><span class="s">&#34;MainWindow.xaml&#34;</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">UriKind</span><span class="p">.</span><span class="n">Relative</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">#line</span> <span class="k">default</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">#line</span> <span class="n">hidden</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;summary&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// 应用程序入口点</span>
+</span></span><span class="line"><span class="cl">        <span class="cs">/// &lt;/summary&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [System.STAThreadAttribute()]</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [System.Diagnostics.DebuggerNonUserCodeAttribute()]</span>
+</span></span><span class="line"><span class="cl"><span class="na">        [System.CodeDom.Compiler.GeneratedCodeAttribute(&#34;PresentationBuildTasks&#34;, &#34;8.0.5.0&#34;)]</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WpfApp1</span><span class="p">.</span><span class="n">App</span> <span class="n">app</span> <span class="p">=</span> <span class="k">new</span> <span class="n">WpfApp1</span><span class="p">.</span><span class="n">App</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">app</span><span class="p">.</span><span class="n">InitializeComponent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">app</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可见编译后生成的 Main 方法，该方法执行了以下操作：</p>
+<ol>
+<li>创建了 App 类型的对象 app</li>
+<li>调用了 app 的 InitializeComponent 方法，从反编译结果可知，该方法中设置了 StartupUri</li>
+<li>调用了 app 的 Run 方法</li>
+</ol>
+<p>那么 app.Run 内部究竟做了什么呢？</p>
+<ol>
+<li>检查 UI 线程</li>
+<li>this.RunDispatcher((object) null);</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public int Run()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    EventTrace.EasyTraceEvent((EventTrace.Keyword) 3, (EventTrace.Event) 3);
+</span></span><span class="line"><span class="cl">    return this.Run((Window) null);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">public int Run(Window window)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    this.VerifyAccess();
+</span></span><span class="line"><span class="cl">    return this.RunInternal(window);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">public void VerifyAccess()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    if (this.Thread!= Thread.CurrentThread;)
+</span></span><span class="line"><span class="cl">        throw new InvalidOperationException(MS.Internal.WindowsBase.SR.Get(nameof (VerifyAccess)));
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">internal int RunInternal(Window window)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    this.VerifyAccess();
+</span></span><span class="line"><span class="cl">    EventTrace.EasyTraceEvent((EventTrace.Keyword) 3, (EventTrace.Event) 3);
+</span></span><span class="line"><span class="cl">    if (this._appIsShutdown)
+</span></span><span class="line"><span class="cl">        throw new InvalidOperationException(SR.Format(SR.CannotCallRunMultipleTimes, (object) ((object) this).GetType().FullName));
+</span></span><span class="line"><span class="cl">    if (window!= null)
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">        if (!((DispatcherObject) window).CheckAccess())
+</span></span><span class="line"><span class="cl">            throw new ArgumentException(SR.Format(SR.WindowPassedShouldBeOnApplicationThread, (object) ((object) window).GetType().FullName, (object) ((object) this).GetType().FullName));
+</span></span><span class="line"><span class="cl">        if (!this.WindowsInternal.HasItem(window))
+</span></span><span class="line"><span class="cl">            this.WindowsInternal.Add(window);
+</span></span><span class="line"><span class="cl">        if (this.MainWindow == null)
+</span></span><span class="line"><span class="cl">            this.MainWindow = window;
+</span></span><span class="line"><span class="cl">        if (window.Visibility!= Visibility.Visible)
+</span></span><span class="line"><span class="cl">            this.Dispatcher.BeginInvoke((DispatcherPriority) 10, (Delegate) (obj =&gt;
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                (obj as Window).Show();
+</span></span><span class="line"><span class="cl">                return (object) null;
+</span></span><span class="line"><span class="cl">            }), (object) window);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    this.EnsureHwndSource();
+</span></span><span class="line"><span class="cl">    this.RunDispatcher((object) null);
+</span></span><span class="line"><span class="cl">    return this._exitCode;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="带-main-函数的方式">带 Main 函数的方式</h2>
+<p>新建一个名为 WpfApp2 的 WPF 程序，此程序默认包含两个类：</p>
+<ol>
+<li>App.xaml
+<ol>
+<li>App.cs</li>
+</ol>
+</li>
+<li>MainWindow.xaml
+<ol>
+<li>MainWindow.cs</li>
+</ol>
+</li>
+</ol>
+<p>接着，删除 App.xaml 和 App.cs 类，并添加 Program.cs 文件，添加 Main 函数，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">    <span class="n">public</span> <span class="k">class</span> <span class="n">Program</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">STAThread</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="k">static</span> <span class="n">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Application</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">app</span><span class="o">.</span><span class="n">StartupUri</span> <span class="o">=</span> <span class="n">new</span> <span class="n">System</span><span class="o">.</span><span class="n">Uri</span><span class="p">(</span><span class="s2">&#34;MainWindow.xaml&#34;</span><span class="p">,</span> <span class="n">System</span><span class="o">.</span><span class="n">UriKind</span><span class="o">.</span><span class="n">Relative</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">app</span><span class="o">.</span><span class="n">Run</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中最为关键的是 STAThread 这个特性，它声明以单线程的方式启动。</p>
+<h2 id="总结">总结</h2>
+<p>这两种方式在本质上实则相同，因为第一种方式在编译完成后，也会转化为第二种写法。相较而言，第二种方式更为灵活，在构造 app 对象之后，能够注册 app 各种生命周期变化的事件，进而开展诸多操作，例如：加载资源文件、确保程序的单例运行、请求接口等等。</p>
+<blockquote>
+<p>Logic will get you from A to B. Imagination will take you everywhere.</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2024-12-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/wpf/">WPF</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%88%91%E5%BD%B1%E5%88%80rpa%E8%AE%A2%E9%98%85%E4%BA%861000&#43;%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84rss/">
+            <span class="next-text nav-default">我影刀RPA订阅了1000&#43;的独立博客的RSS</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2024-12-29 20:03:57 \u002b0800 CST',
+        title: 'WPF程序的两种启动方式',
+        clientID: 'Ov23liaqY9omA9FHn1sx',
+        clientSecret: '09aeeda41220686acef0d84b6dc2059e2fd30797',
+        repo: 'blog_comments',
+        owner: 'huojian-jan',
+        admin: ['huojian-jan'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="3300837618@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/11211822/huojian" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://github.com/huojian-jan" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/57049617?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
