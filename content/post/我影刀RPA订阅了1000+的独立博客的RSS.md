@@ -1,6 +1,6 @@
 +++
 date = '2024-12-15T19:33:52+08:00'
-draft = true
+draft = false
 title = '我影刀RPA订阅了1000+的独立博客的RSS'
 tags = ["RPA"]
 categories = ["技术博客"]

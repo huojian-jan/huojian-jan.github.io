@@ -1,6 +1,6 @@
 +++
 date = '2024-12-29T20:03:57+08:00'
-draft = true
+draft = false
 title = 'WPF程序的两种启动方式'
 tags = ["WPF"]
 categories = ["技术博客"]

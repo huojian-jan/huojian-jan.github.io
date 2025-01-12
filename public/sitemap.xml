@@ -3,48 +3,55 @@
   
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/tags/wpf/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2024-12-29T20:03:57+08:00</lastmod>
+    <loc>http://localhost:1313/post/wpf%E4%B8%AD%E7%9A%84application%E7%B1%BB/</loc>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2025-01-12T16:35:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/wpf%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2024-12-29T20:03:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
