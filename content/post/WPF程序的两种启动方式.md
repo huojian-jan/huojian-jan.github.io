@@ -4,6 +4,7 @@ draft = true
 title = 'WPF程序的两种启动方式'
 tags = ["WPF"]
 categories = ["技术博客"]
+author.name = "火箭"
 +++
 ## 默认启动方式
 

@@ -4,6 +4,7 @@ draft = true
 title = '我影刀RPA订阅了1000+的独立博客的RSS'
 tags = ["RPA"]
 categories = ["技术博客"]
+author.name = "火箭"
 +++
 
 
