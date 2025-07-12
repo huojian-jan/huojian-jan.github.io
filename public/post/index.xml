@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo</generator>
     <language>cn</language>
-    <lastBuildDate>Sun, 12 Jan 2025 16:35:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jan 2025 19:33:52 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows上实现子进程随父进程退出的解决方案</title>
+      <link>http://localhost:1313/post/windows%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%AD%90%E8%BF%9B%E7%A8%8B%E8%B7%9F%E7%9D%80%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%B8%80%E8%B5%B7%E9%80%80%E5%87%BA%E7%9A%84%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Sun, 26 Jan 2025 19:33:52 +0800</pubDate>
+      <guid>http://localhost:1313/post/windows%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%AD%90%E8%BF%9B%E7%A8%8B%E8%B7%9F%E7%9D%80%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%B8%80%E8%B5%B7%E9%80%80%E5%87%BA%E7%9A%84%E6%96%B9%E6%A1%88/</guid>
+      <description>&lt;p&gt;Windows系统本身并不维护进程间的父子关系，但子进程会记录父进程的PID。在实际开发中，我们经常需要实现子进程随父进程退出的功能。本文将介绍几种成熟的实现方案。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>WPF中的Application类</title>
       <link>http://localhost:1313/post/wpf%E4%B8%AD%E7%9A%84application%E7%B1%BB/</link>
@@ -23,10 +30,10 @@
       <description>&lt;h2 id=&#34;默认启动方式&#34;&gt;默认启动方式&lt;/h2&gt;&#xA;&lt;p&gt;新建一个名为 WpfApp1 的 WPF 程序，该程序默认包含两个类：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;App.xaml&#xA;&lt;ol&gt;&#xA;&lt;li&gt;App.cs&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;MainWindow.xaml&#xA;&lt;ol&gt;&#xA;&lt;li&gt;MainWindow.cs&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;创建完成后，直接按 F5 启动可打开主窗口。那么，此程序是如何启动的呢？&lt;/p&gt;&#xA;&lt;p&gt;通过 dotPeek 反编译生成的编译文件 WpfApp1.exe，反编译结果如下：&lt;/p&gt;</description>
     </item>
     <item>
-      <title>我影刀RPA订阅了1000&#43;的独立博客的RSS</title>
-      <link>http://localhost:1313/post/%E6%88%91%E5%BD%B1%E5%88%80rpa%E8%AE%A2%E9%98%85%E4%BA%861000&#43;%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84rss/</link>
+      <title>我用影刀RPA订阅了1000&#43;的独立博客的RSS</title>
+      <link>http://localhost:1313/post/%E6%88%91%E7%94%A8%E5%BD%B1%E5%88%80rpa%E8%AE%A2%E9%98%85%E4%BA%861000&#43;%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84rss/</link>
       <pubDate>Sun, 15 Dec 2024 19:33:52 +0800</pubDate>
-      <guid>http://localhost:1313/post/%E6%88%91%E5%BD%B1%E5%88%80rpa%E8%AE%A2%E9%98%85%E4%BA%861000&#43;%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84rss/</guid>
+      <guid>http://localhost:1313/post/%E6%88%91%E7%94%A8%E5%BD%B1%E5%88%80rpa%E8%AE%A2%E9%98%85%E4%BA%861000&#43;%E7%9A%84%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2%E7%9A%84rss/</guid>
       <description>&lt;p&gt;很早之前我在 Github 上发现了一个&lt;a href=&#34;https://github.com/timqian/chinese-independent-blogs&#34;&gt;Repo&lt;/a&gt;，里面整理了大量独立博客网站。通过这个项目，我发现了许多计算机界的大佬博客，比如&lt;a href=&#34;https://www.yinwang.org/&#34;&gt;王垠的博客&lt;/a&gt;、&lt;a href=&#34;https://greatdk.com&#34;&gt;王登科-DK博客&lt;/a&gt;、&lt;a href=&#34;http://macshuo.com&#34;&gt;MacTalk-池建强的随想录&lt;/a&gt;等。我把这些博客都保存在浏览器的书签文件夹里，每当有空就会去看看这些大佬是否有更新。&lt;/p&gt;&#xA;&lt;p&gt;偶然间，我了解到了RSS，并发现了一个神奇的项目&lt;a href=&#34;https://docs.rsshub.app/&#34;&gt;RSSHub&lt;/a&gt;。于是我开始探索博客订阅的新天地。最终选择了InoReader作为订阅工具，主要是因为它支持账号登录，可以在不同设备间同步阅读进度。虽然由于网络限制，IOS移动端App无法正常获取信息，但这影响不大，因为我很少用移动设备阅读。&lt;/p&gt;&#xA;&lt;p&gt;我欣喜若狂地打开了&lt;a href=&#34;https://github.com/timqian/chinese-independent-blogs&#34;&gt;博客列表的Repo&lt;/a&gt;，开始逐个点开博客网站，等待InoReader识别RSS，点击订阅，等待完成，然后继续下一个……这个过程既快乐又痛苦，因为订阅一个博客就需要一分多钟，而我要关注1000多个博客，手动订阅实在太耗时了。我准备自动化订阅RSS的过程，作为一个RPA产品的研发，我当然要用我们的软件——&lt;a href=&#34;https://www.yingdao.com/&#34;&gt;影刀RPA&lt;/a&gt;。&lt;/p&gt;&#xA;&lt;p&gt;软件的安装和注册过程我就不写了，我们社区版支持最多30行指令的运行，完成订阅博客这件事绰绰有余。接下来我介绍一下开发思路。&lt;/p&gt;</description>
     </item>
     <item>
