@@ -50,8 +50,8 @@
 
   <meta itemprop="name" content="Even - A super concise theme for Hugo">
   <meta itemprop="description" content="火箭的技术博客">
-  <meta itemprop="datePublished" content="2025-07-12T14:50:41+08:00">
-  <meta itemprop="dateModified" content="2025-07-12T14:50:41+08:00">
+  <meta itemprop="datePublished" content="2025-07-19T17:27:22+08:00">
+  <meta itemprop="dateModified" content="2025-07-19T17:27:22+08:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Even - A super concise theme for Hugo">
   <meta name="twitter:description" content="火箭的技术博客">
@@ -125,6 +125,58 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E7%9A%84%E6%80%9D%E8%80%83%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/">异常打Error日志,Review的时候被喷了</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2025-02-11 </span>
+      <div class="post-category">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"> 技术博客 </a>
+          </div>
+        <span class="more-meta"> 约 722 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TagInfo</span><span class="p">[]&gt;</span> <span class="n">GetTagListAsync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">await</span> <span class="n">_apiClient</span><span class="p">.</span><span class="n">GetTagListAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Logging</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E7%9A%84%E6%80%9D%E8%80%83%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/cpp%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E7%9A%84sz%E5%89%8D%E7%BC%80%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D/">CPP中的字符串变量的sz前缀是什么意思</a></h1>
