@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CPP中的字符串变量为什么都有sz前缀 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="火箭" /><meta name="description" content="之前做了一个VNC远程控制相关的项目，服务端用的是UltraVNC的魔改版本，客户端用的是谷歌开源的guacamole，最终实现的是用户可以在浏览器中远程控制电脑的效果。当时魔改UltraVNC的时候看过它的源码，最近开始深入学习Windows API，决定重新看一遍UltraVNC的源码，看源码发现了一个比较有意思的问题，所有的字符串变量都是sz开头的 类似于这种
+" /><meta name="keywords" content="火箭的博客, WPF技术, 编程" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.148.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/cpp%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%83%BD%E6%9C%89sz%E5%89%8D%E7%BC%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.a1db14b6e84e8f090408306914864cc22490babc1818d4b1260b716b5ac1a4cc.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="http://localhost:1313/post/cpp%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%83%BD%E6%9C%89sz%E5%89%8D%E7%BC%80/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="CPP中的字符串变量为什么都有sz前缀">
+  <meta property="og:description" content="之前做了一个VNC远程控制相关的项目，服务端用的是UltraVNC的魔改版本，客户端用的是谷歌开源的guacamole，最终实现的是用户可以在浏览器中远程控制电脑的效果。当时魔改UltraVNC的时候看过它的源码，最近开始深入学习Windows API，决定重新看一遍UltraVNC的源码，看源码发现了一个比较有意思的问题，所有的字符串变量都是sz开头的 类似于这种">
+  <meta property="og:locale" content="cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-01-27T12:45:19+08:00">
+    <meta property="article:modified_time" content="2025-01-27T12:45:19+08:00">
+    <meta property="article:tag" content="Cpp">
+
+  <meta itemprop="name" content="CPP中的字符串变量为什么都有sz前缀">
+  <meta itemprop="description" content="之前做了一个VNC远程控制相关的项目，服务端用的是UltraVNC的魔改版本，客户端用的是谷歌开源的guacamole，最终实现的是用户可以在浏览器中远程控制电脑的效果。当时魔改UltraVNC的时候看过它的源码，最近开始深入学习Windows API，决定重新看一遍UltraVNC的源码，看源码发现了一个比较有意思的问题，所有的字符串变量都是sz开头的 类似于这种">
+  <meta itemprop="datePublished" content="2025-01-27T12:45:19+08:00">
+  <meta itemprop="dateModified" content="2025-01-27T12:45:19+08:00">
+  <meta itemprop="wordCount" content="297">
+  <meta itemprop="keywords" content="Cpp">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CPP中的字符串变量为什么都有sz前缀">
+  <meta name="twitter:description" content="之前做了一个VNC远程控制相关的项目，服务端用的是UltraVNC的魔改版本，客户端用的是谷歌开源的guacamole，最终实现的是用户可以在浏览器中远程控制电脑的效果。当时魔改UltraVNC的时候看过它的源码，最近开始深入学习Windows API，决定重新看一遍UltraVNC的源码，看源码发现了一个比较有意思的问题，所有的字符串变量都是sz开头的 类似于这种">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">火箭的博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">火箭的博客</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CPP中的字符串变量为什么都有sz前缀</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2025-01-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"> 技术博客 </a>
+            </div>
+          <span class="more-meta"> 约 297 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>之前做了一个VNC远程控制相关的项目，服务端用的是UltraVNC的魔改版本，客户端用的是谷歌开源的guacamole，最终实现的是用户可以在浏览器中远程控制电脑的效果。当时魔改UltraVNC的时候看过它的源码，最近开始深入学习Windows API，决定重新看一遍UltraVNC的源码，看源码发现了一个比较有意思的问题，<strong>所有的字符串变量都是sz开头的</strong>
+类似于这种</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">szCmdLine</span> <span class="o">=</span> <span class="n">szCmdLine2</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后去搜了一下相关的的资料，在<a href="https://softwareengineering.stackexchange.com/questions/450259/why-is-the-term-string-so-often-abbreviated-as-sz">StackExchange</a>上找到了答案，答案还是比较有意思的：</p>
+<p>众所周知，C/C++中的字符串，默认都是&rsquo;\0&rsquo;结尾，sz表示zero based string,即0结尾的字符串。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">火箭</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-01-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/cpp/">cpp</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/windows%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%AD%90%E8%BF%9B%E7%A8%8B%E8%B7%9F%E7%9D%80%E7%88%B6%E8%BF%9B%E7%A8%8B%E4%B8%80%E8%B5%B7%E9%80%80%E5%87%BA%E7%9A%84%E6%96%B9%E6%A1%88/">
+            <span class="next-text nav-default">Windows上实现子进程随父进程退出的解决方案</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2025-01-27 12:45:19 \u002b0800 CST',
+        title: 'CPP中的字符串变量为什么都有sz前缀',
+        clientID: 'Ov23liaqY9omA9FHn1sx',
+        clientSecret: '09aeeda41220686acef0d84b6dc2059e2fd30797',
+        repo: 'blog_comments',
+        owner: 'huojian-jan',
+        admin: ['huojian-jan'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="3300837618@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/11211822/huojian" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://github.com/huojian-jan" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/57049617?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

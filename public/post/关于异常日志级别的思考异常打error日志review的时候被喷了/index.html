@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于异常日志级别的思考：异常打Error日志,Review的时候被喷了 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="火箭" /><meta name="description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
+1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;
+" /><meta name="keywords" content="火箭的博客, WPF技术, 编程" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.148.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E7%9A%84%E6%80%9D%E8%80%83%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.a1db14b6e84e8f090408306914864cc22490babc1818d4b1260b716b5ac1a4cc.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:url" content="http://localhost:1313/post/%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E7%9A%84%E6%80%9D%E8%80%83%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/">
+  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:title" content="关于异常日志级别的思考：异常打Error日志,Review的时候被喷了">
+  <meta property="og:description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
+1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：“为什么要在这里使用Error级别的日志？”">
+  <meta property="og:locale" content="cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-02-11T13:20:19+08:00">
+    <meta property="article:modified_time" content="2025-02-11T13:20:19+08:00">
+    <meta property="article:tag" content="开发思考">
+
+  <meta itemprop="name" content="关于异常日志级别的思考：异常打Error日志,Review的时候被喷了">
+  <meta itemprop="description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
+1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：“为什么要在这里使用Error级别的日志？”">
+  <meta itemprop="datePublished" content="2025-02-11T13:20:19+08:00">
+  <meta itemprop="dateModified" content="2025-02-11T13:20:19+08:00">
+  <meta itemprop="wordCount" content="722">
+  <meta itemprop="keywords" content="开发思考">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="关于异常日志级别的思考：异常打Error日志,Review的时候被喷了">
+  <meta name="twitter:description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
+1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：“为什么要在这里使用Error级别的日志？”">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">火箭的博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">火箭的博客</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于异常日志级别的思考：异常打Error日志,Review的时候被喷了</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2025-02-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/"> 技术博客 </a>
+            </div>
+          <span class="more-meta"> 约 722 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TagInfo</span><span class="p">[]&gt;</span> <span class="n">GetTagListAsync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">await</span> <span class="n">_apiClient</span><span class="p">.</span><span class="n">GetTagListAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Logging</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;</p>
+<h3 id="问题探讨">问题探讨</h3>
+<p>我最初的反应是：&ldquo;捕获了异常，难道不应该用Error级别吗？&ldquo;我们就日志级别适用场景 「讨论」了约5分钟。</p>
+<p>Reviewer的观点：</p>
+<ol>
+<li>谁会去看这个日志？</li>
+<li>这个接口异常是否会阻塞主流程继续执行？</li>
+<li>如果真的出现了异常，我们如何主动监控这类异常？</li>
+</ol>
+<p>他随后分享了一个Stack Overflow上关于日志级别的讨论：<a href="https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels">When to use the different log levels</a></p>
+<h3 id="解决方案">解决方案</h3>
+<p>经过讨论，我被说服了，在这种情况下使用Warning级别更为合适。修改后的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TagInfo</span><span class="p">[]&gt;</span> <span class="n">GetTagListAsync</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">await</span> <span class="n">_apiClient</span><span class="p">.</span><span class="n">GetTagListAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// remoteLog参数会将日志上传到ELK，便于后续通过关键字进行分析</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Logging</span><span class="p">.</span><span class="n">Warn</span><span class="p">(</span><span class="s">$&#34;Failed to get tag list, msg:{ex.Message}&#34;</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">remoteLog</span><span class="p">:</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="日志级别的最佳实践">日志级别的最佳实践</h3>
+<p>Stack Overflow上的高票回答提供了一个清晰的日志级别使用指南图表，非常值得参考。</p>
+<ul>
+<li><strong>Error</strong>：用于确实影响程序正常执行的严重错误</li>
+<li><strong>Warning</strong>：适用于非关键路径上的异常或可恢复的错误</li>
+<li><strong>Info</strong>：记录程序正常运行的重要信息</li>
+<li><strong>Debug</strong>：开发调试期间的详细信息</li>
+<li><strong>Trace</strong>：最详细的日志信息，通常用于问题诊断</li>
+</ul>
+<p>在这个案例中，获取标签列表失败不会影响核心业务流程，因此使用Warning级别更为恰当。这种区分有助于运维人员快速定位真正严重的问题，避免在大量Error日志中遗漏关键错误。</p>
+<p>下面这个图是高赞回答的博主贴的，很清晰的说明了何时使用什么级别的日志。</p>
+<p><img src="https://tuchuang-1258410772.cos.ap-guangzhou.myqcloud.com/log_leve.png" alt="image.png"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">火箭</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-02-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%BC%80%E5%8F%91%E6%80%9D%E8%80%83/">开发思考</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cpp%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E7%9A%84sz%E5%89%8D%E7%BC%80%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D/">
+            <span class="next-text nav-default">CPP中的字符串变量的sz前缀是什么意思</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2025-02-11 13:20:19 \u002b0800 CST',
+        title: '关于异常日志级别的思考：异常打Error日志,Review的时候被喷了',
+        clientID: 'Ov23liaqY9omA9FHn1sx',
+        clientSecret: '09aeeda41220686acef0d84b6dc2059e2fd30797',
+        repo: 'blog_comments',
+        owner: 'huojian-jan',
+        admin: ['huojian-jan'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="3300837618@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/11211822/huojian" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://github.com/huojian-jan" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/57049617?spm_id_from=333.1007.0.0" class="iconfont icon-bilibili" title="bilibili"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024 - 
+    2025<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

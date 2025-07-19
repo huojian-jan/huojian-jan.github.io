@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows技术 on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/windows%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in Windows技术 on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>cn</language>
+    <lastBuildDate>Sun, 15 Dec 2024 19:33:52 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/windows%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录一次因Windows上的nested_job引起的线上bug</title>
+      <link>http://localhost:1313/post/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%9B%A0windows%E4%B8%8A%E7%9A%84nested_job%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/</link>
+      <pubDate>Sun, 15 Dec 2024 19:33:52 +0800</pubDate>
+      <guid>http://localhost:1313/post/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%9B%A0windows%E4%B8%8A%E7%9A%84nested_job%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/</guid>
+      <description>&lt;h2 id=&#34;job介绍&#34;&gt;Job介绍&lt;/h2&gt;&#xA;&lt;p&gt;Windows有个job的内核对象，可以把多个进程关联到这个内核对象上实现N个进程的统一管理。比如，我们用job，把子进程&amp;quot;绑定&amp;quot;到了父进程上，实现了父进程退出时，子进程也会随着退出。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
