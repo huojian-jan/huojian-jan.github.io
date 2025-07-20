@@ -1,7 +1,7 @@
 +++
 date = '2025-02-16T10:50:41+08:00'
 draft = false
-title = '我每天都在用的git操作'
+title = '我每天都在用的git命令'
 tags = ["git"]
 categories = ["技术博客"]
 author = "火箭"
