@@ -6,13 +6,20 @@
     <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo</generator>
     <language>cn</language>
-    <lastBuildDate>Tue, 11 Feb 2025 13:20:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Feb 2025 10:50:41 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>开发思考</title>
-      <link>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E6%80%9D%E8%80%83/</link>
+      <title>Git</title>
+      <link>http://localhost:1313/tags/git/</link>
+      <pubDate>Sun, 16 Feb 2025 10:50:41 +0800</pubDate>
+      <guid>http://localhost:1313/tags/git/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Code Review</title>
+      <link>http://localhost:1313/tags/code-review/</link>
       <pubDate>Tue, 11 Feb 2025 13:20:19 +0800</pubDate>
-      <guid>http://localhost:1313/tags/%E5%BC%80%E5%8F%91%E6%80%9D%E8%80%83/</guid>
+      <guid>http://localhost:1313/tags/code-review/</guid>
       <description></description>
     </item>
     <item>
