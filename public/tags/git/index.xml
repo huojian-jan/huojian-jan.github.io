@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/git/</link>
+    <description>Recent content in Git on Even - A super concise theme for Hugo</description>
+    <generator>Hugo</generator>
+    <language>cn</language>
+    <lastBuildDate>Sun, 16 Feb 2025 10:50:41 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git工作流：日常开发中的高效版本控制实践</title>
+      <link>http://localhost:1313/post/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87%E7%9A%84git%E6%8A%80%E5%B7%A7/</link>
+      <pubDate>Sun, 16 Feb 2025 10:50:41 +0800</pubDate>
+      <guid>http://localhost:1313/post/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87%E7%9A%84git%E6%8A%80%E5%B7%A7/</guid>
+      <description>&lt;p&gt;在入职影刀后，我的版本控制工作流逐渐转向以命令行操作为主。除查看合并历史等特定场景会使用TortoiseGit外，90%的Git操作都通过命令行完成。本文将分享我日常高频使用的Git命令及其应用场景。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
