@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on Even - A super concise theme for Hugo</title>
+    <title>Git on 火箭的个人博客</title>
     <link>http://localhost:1313/tags/git/</link>
-    <description>Recent content in Git on Even - A super concise theme for Hugo</description>
+    <description>Recent content in Git on 火箭的个人博客</description>
     <generator>Hugo</generator>
     <language>cn</language>
     <lastBuildDate>Sun, 16 Feb 2025 10:50:41 +0800</lastBuildDate>

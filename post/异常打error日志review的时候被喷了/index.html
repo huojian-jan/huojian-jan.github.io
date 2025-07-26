@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>异常打Error日志,Review的时候被喷了 - Even - A super concise theme for Hugo</title>
+  <title>异常打Error日志,Review的时候被喷了 - 火箭的个人博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -18,7 +18,7 @@
 
 <meta name="author" content="火箭" /><meta name="description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
 1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;
-" /><meta name="keywords" content="火箭的博客, WPF技术, 编程" />
+" /><meta name="keywords" content="思考, Windows技术, 生活, 写作, 编程" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/post/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/">
-  <meta property="og:site_name" content="Even - A super concise theme for Hugo">
+  <meta property="og:site_name" content="火箭的个人博客">
   <meta property="og:title" content="异常打Error日志,Review的时候被喷了">
   <meta property="og:description" content="前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：
 1 2 3 4 5 6 7 8 9 10 11 public async Task&lt;TagInfo[]&gt; GetTagListAsync() { try { return await _apiClient.GetTagListAsync(); } catch (Exception ex) { Logging.Error(ex.Message, ex); } } Reviewer提了一个令我没想到的问题：“为什么要在这里使用Error级别的日志？”">
