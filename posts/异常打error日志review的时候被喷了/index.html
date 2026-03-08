@@ -1,44 +1,719 @@
-<!doctype html><html lang=zh-Hans x-data :class=$store.darkMode.class() :data-theme=$store.darkMode.theme()><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>异常打Error日志,Review的时候被喷了 | huanjian's blog</title><link rel=canonical href=https://huojian-jan.github.io/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/><meta name=author content="火箭"><meta name=description content><meta name=keywords content="Code Review"><meta name=generator content="Hugo 0.147.9"><meta property="og:url" content="https://huojian-jan.github.io/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/"><meta property="og:site_name" content="huanjian's blog"><meta property="og:title" content="异常打Error日志,Review的时候被喷了"><meta property="og:locale" content="zh_Hans"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-02-11T00:00:00+00:00"><meta property="article:modified_time" content="2025-02-11T00:00:00+00:00"><meta property="article:tag" content="Code Review"><meta name=twitter:card content="summary"><meta name=twitter:title content="异常打Error日志,Review的时候被喷了"><link rel=stylesheet href=/css/output.min.css><style>pre{padding:1em;overflow:auto}</style><link rel=stylesheet href=/css/custom.css><script defer src=https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js integrity="sha256-PtHu0lJIiSHfZeNj1nFd6wTX+Squ255SGZ/fc8seCtM=" crossorigin=anonymous></script></head><body x-data="{
+<!DOCTYPE html>
+<html lang="zh-Hans"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异常打Error日志,Review的时候被喷了 | huanjian&#39;s blog</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" />
+
+
+
+<meta name="author" content="火箭" />
+<meta name="description" content="" />
+
+
+<meta name="keywords" content="Code Review">
+
+
+
+<meta name="generator" content="Hugo 0.147.4">
+
+
+<meta property="og:url" content="http://localhost:1313/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/">
+  <meta property="og:site_name" content="huanjian&#39;s blog">
+  <meta property="og:title" content="异常打Error日志,Review的时候被喷了">
+  <meta property="og:locale" content="zh_Hans">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-02-11T00:00:00+00:00">
+    <meta property="article:tag" content="Code Review">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="异常打Error日志,Review的时候被喷了">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/custom.css" />
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js" integrity="sha256-PtHu0lJIiSHfZeNj1nFd6wTX+Squ255SGZ/fc8seCtM=" crossorigin="anonymous"></script>
+  </head>
+
+  <body x-data="{
     flip: false,
-  }"><div id=dream-global-bg></div><nav class="mt-4 lg:mt-8 py-4"><div class="container flex justify-between px-4"><section class="flex items-center gap-4"><div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title=翻转一下！><div class="h-10 rounded-full"><img src=/ alt></div></div></section><div class="dropdown dropdown-end sm:hidden"><div tabindex=0 role=button class="btn btn-ghost btn-square" aria-label="Select an option"><ion-icon name=menu class=text-2xl></ion-icon></div><ul tabindex=0 class="dropdown-content menu w-36 bg-base-100 rounded-box z-1 shadow-md"><li><div role=link tabindex=0 class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title=关于><ion-icon name=information-circle></ion-icon>关于</div></li><li><a class="group inline-flex items-center p-2 cursor-pointer" href=/search title=搜索><ion-icon name=search></ion-icon>搜索</a></li><li><a class="inline-flex items-center p-2 cursor-pointer" href=/posts title=归档><ion-icon name=archive></ion-icon>归档</a></li><li><a class="inline-flex items-center p-2 cursor-pointer" href=/categories title=所有分类><ion-icon name=grid></ion-icon>所有分类</a></li><li><a class="inline-flex items-center p-2 cursor-pointer" href=/tags title=所有标签><ion-icon name=pricetags></ion-icon>所有标签</a></li><li><a class="inline-flex items-center p-2 cursor-pointer" href=https://github.com/huojian-jan target=_blank title=GitHub><ion-icon name=logo-github></ion-icon>GitHub</a></li></ul></div><section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4"><div role=link tabindex=0 class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title=关于>关于</div><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href=/search title=搜索><ion-icon class=group-hover:text-primary-content name=search></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href=/posts title=归档><ion-icon class=group-hover:text-primary-content name=archive></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href=/categories title=所有分类><ion-icon class=group-hover:text-primary-content name=grid></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href=/tags title=所有标签><ion-icon class=group-hover:text-primary-content name=pricetags></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href=https://github.com/huojian-jan target=_blank title=GitHub><ion-icon class=group-hover:text-primary-content name=logo-github></ion-icon></a></section></div></nav><div class=flip-container :class="{ 'flip-it': flip }"><div class=flipper><div class=front><div class=container><div class="lg:grid lg:grid-cols-4 gap-4 mt-4 px-4"><div class="hidden lg:block"></div><div class=lg:col-span-2><article class="mx-auto prose prose-quoteless dark:prose-invert" id=dream-single-post-main itemscope itemtype=http://schema.org/Article><meta itemprop=name content="异常打Error日志,Review的时候被喷了"><meta itemprop=datePublished content="2025-02-11T00:00:00+00:00"><meta itemprop=dateModified content="2025-02-11T00:00:00+00:00"><meta itemprop=wordCount content="705"><meta itemprop=keywords content="Code Review"><header><h1 itemprop=headline>异常打Error日志,Review的时候被喷了</h1><p class=text-sm><span data-format=luxon>2025-02-11T00:00:00Z</span>
-| <span>2分钟阅读</span>
-| <span>更新于
-<span data-format=luxon>2025-02-11T00:00:00Z</span></span></p><div class="flex justify-between"><div class="flex items-center"><span>@</span>
-<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=name>火箭</span></span></div><div class="flex items-center gap-2"><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://x.com/intent/post?text=%e5%bc%82%e5%b8%b8%e6%89%93Error%e6%97%a5%e5%bf%97,Review%e7%9a%84%e6%97%b6%e5%80%99%e8%a2%ab%e5%96%b7%e4%ba%86&amp;url=https://huojian-jan.github.io/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target=_blank rel="noopener noreferrer" title="Share on X"><ion-icon class=group-hover:text-primary-content name=logo-x></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://facebook.com/sharer/sharer.php?u=https://huojian-jan.github.io/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target=_blank rel="noopener noreferrer" title="Share on Facebook"><ion-icon class=group-hover:text-primary-content name=logo-facebook></ion-icon></a><a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://wa.me/?text=%e5%bc%82%e5%b8%b8%e6%89%93Error%e6%97%a5%e5%bf%97,Review%e7%9a%84%e6%97%b6%e5%80%99%e8%a2%ab%e5%96%b7%e4%ba%86%20https://huojian-jan.github.io/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target=_blank rel="noopener noreferrer" title="Share on WhatsApp"><ion-icon class=group-hover:text-primary-content name=logo-whatsapp></ion-icon></a></div></div></header><section id=dream-single-post-content itemprop=articleBody><p>前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;TagInfo[]&gt; GetTagListAsync()
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>await</span> _apiClient.GetTagListAsync();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>catch</span> (Exception ex)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        Logging.Error(ex.Message, ex);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;</p><h3 id=问题探讨>问题探讨</h3><p>我最初的反应是：&ldquo;捕获了异常，难道不应该用Error级别吗？&ldquo;我们就日志级别适用场景 「讨论」了约5分钟。</p><p>Reviewer的观点：</p><ol><li>谁会去看这个日志？</li><li>这个接口异常是否会阻塞主流程继续执行？</li><li>如果真的出现了异常，我们如何主动监控这类异常？</li></ol><p>他随后分享了一个Stack Overflow上关于日志级别的讨论：<a href=https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels target=_blank>When to use the different log levels</a></p><h3 id=解决方案>解决方案</h3><p>经过讨论，我被说服了，在这种情况下使用Warning级别更为合适。修改后的代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;TagInfo[]&gt; GetTagListAsync()
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>await</span> _apiClient.GetTagListAsync();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>catch</span> (Exception ex)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// remoteLog参数会将日志上传到ELK，便于后续通过关键字进行分析</span>
-</span></span><span style=display:flex><span>        Logging.Warn(<span style=color:#e6db74>$&#34;Failed to get tag list, msg:{ex.Message}&#34;</span>, ex, remoteLog: <span style=color:#66d9ef>true</span>);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=日志级别的最佳实践>日志级别的最佳实践</h3><p>Stack Overflow上的高票回答提供了一个清晰的日志级别使用指南图表，非常值得参考。</p><ul><li><strong>Error</strong>：用于确实影响程序正常执行的严重错误</li><li><strong>Warning</strong>：适用于非关键路径上的异常或可恢复的错误</li><li><strong>Info</strong>：记录程序正常运行的重要信息</li><li><strong>Debug</strong>：开发调试期间的详细信息</li><li><strong>Trace</strong>：最详细的日志信息，通常用于问题诊断</li></ul><p>在这个案例中，获取标签列表失败不会影响核心业务流程，因此使用Warning级别更为恰当。这种区分有助于运维人员快速定位真正严重的问题，避免在大量Error日志中遗漏关键错误。</p><p>下面这个图是高赞回答的博主贴的，很清晰的说明了何时使用什么级别的日志。</p><p><img src=https://tuchuang-1258410772.cos.ap-guangzhou.myqcloud.com/log_leve.png alt=image.png>
-The remaining content of your post.</p></section></article></div><div x-data=tocHighlighter() @scroll.window=debouncedScroll class="hidden lg:flex lg:flex-col lg:items-end lg:self-start"></div></div><footer class="flex justify-between items-center gap-2 px-4 py-12"><div><p>© 2026 huanjian's blog</p><p class=text-sm>🌱
-<span class=text-base-content/60>Powered by <a class=hover:underline href=https://gohugo.io/ target=_blank>Hugo</a> with theme
-<a class=hover:underline href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</span></p></div><div x-data="{ icons: [
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="翻转一下！">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="" />
+        </div>
+      </div>
+
+      
+    </section>
+
+    
+    
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-1 shadow-md">
+        
+
+
+
+
+
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="关于">
+    <ion-icon name="information-circle"></ion-icon>关于</div>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a class="group inline-flex items-center p-2 cursor-pointer" href="/search" title="搜索">
+    <ion-icon name="search"></ion-icon>
+    搜索
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/huojian-jan" target="_blank" title="GitHub">
+    
+    <ion-icon name="logo-github"></ion-icon>
+    
+    GitHub
+  </a>
+</li>
+
+
+
+  
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+
+      
+      
+
+
+
+
+<div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="关于">关于</div>
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/search" title="搜索">
+  <ion-icon class="group-hover:text-primary-content" name="search"></ion-icon>
+</a>
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/posts" title="归档">
+  <ion-icon class="group-hover:text-primary-content" name="archive"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="所有分类">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="所有标签">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+  
+    
+
+
+
+  
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://github.com/huojian-jan" target="_blank" title="GitHub">
+    <ion-icon class="group-hover:text-primary-content" name="logo-github"></ion-icon>
+  </a>
+  
+
+
+
+  
+
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="lg:grid lg:grid-cols-4 gap-4 mt-4 px-4">
+  <div class="hidden lg:block">
+    
+  </div>
+
+  <div class="lg:col-span-2">
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="异常打Error日志,Review的时候被喷了">
+  <meta itemprop="datePublished" content="2025-02-11T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-02-11T00:00:00+00:00">
+  <meta itemprop="wordCount" content="705">
+  <meta itemprop="keywords" content="Code Review">
+
+      <header>
+        <h1 itemprop="headline">异常打Error日志,Review的时候被喷了</h1>
+        <p class="text-sm">
+          
+            <span data-format="luxon">2025-02-11T00:00:00Z</span>
+          
+
+          | <span>2分钟阅读</span>
+
+          
+          | <span>更新于
+            
+              <span data-format="luxon">2025-02-11T00:00:00Z</span>
+            </span>
+          
+        </p>
+
+        
+        <div class="flex justify-between">
+          
+            <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <span itemprop="name">火箭</span>
+    
+  
+  </span>
+</div>
+
+          
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=%e5%bc%82%e5%b8%b8%e6%89%93Error%e6%97%a5%e5%bf%97,Review%e7%9a%84%e6%97%b6%e5%80%99%e8%a2%ab%e5%96%b7%e4%ba%86&amp;url=http://localhost:1313/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=%e5%bc%82%e5%b8%b8%e6%89%93Error%e6%97%a5%e5%bf%97,Review%e7%9a%84%e6%97%b6%e5%80%99%e8%a2%ab%e5%96%b7%e4%ba%86%20http://localhost:1313/posts/%E5%BC%82%E5%B8%B8%E6%89%93error%E6%97%A5%E5%BF%97review%E7%9A%84%E6%97%B6%E5%80%99%E8%A2%AB%E5%96%B7%E4%BA%86/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      <section id="dream-single-post-content" itemprop="articleBody">
+        
+
+        <p>前几天在提交一个MR的Code Review时，遇到了一个关于日志级别的有趣讨论。我的原始代码是一个获取标签列表的方法，实现如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;TagInfo[]&gt; GetTagListAsync()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> _apiClient.GetTagListAsync();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> (Exception ex)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Logging.Error(ex.Message, ex);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Reviewer提了一个令我没想到的问题：&ldquo;为什么要在这里使用Error级别的日志？&rdquo;</p>
+<h3 id="问题探讨">问题探讨</h3>
+<p>我最初的反应是：&ldquo;捕获了异常，难道不应该用Error级别吗？&ldquo;我们就日志级别适用场景 「讨论」了约5分钟。</p>
+<p>Reviewer的观点：</p>
+<ol>
+<li>谁会去看这个日志？</li>
+<li>这个接口异常是否会阻塞主流程继续执行？</li>
+<li>如果真的出现了异常，我们如何主动监控这类异常？</li>
+</ol>
+<p>他随后分享了一个Stack Overflow上关于日志级别的讨论：<a href="https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels" target="_blank">When to use the different log levels</a>
+</p>
+<h3 id="解决方案">解决方案</h3>
+<p>经过讨论，我被说服了，在这种情况下使用Warning级别更为合适。修改后的代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task&lt;TagInfo[]&gt; GetTagListAsync()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> _apiClient.GetTagListAsync();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> (Exception ex)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// remoteLog参数会将日志上传到ELK，便于后续通过关键字进行分析</span>
+</span></span><span style="display:flex;"><span>        Logging.Warn(<span style="color:#e6db74">$&#34;Failed to get tag list, msg:{ex.Message}&#34;</span>, ex, remoteLog: <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="日志级别的最佳实践">日志级别的最佳实践</h3>
+<p>Stack Overflow上的高票回答提供了一个清晰的日志级别使用指南图表，非常值得参考。</p>
+<ul>
+<li><strong>Error</strong>：用于确实影响程序正常执行的严重错误</li>
+<li><strong>Warning</strong>：适用于非关键路径上的异常或可恢复的错误</li>
+<li><strong>Info</strong>：记录程序正常运行的重要信息</li>
+<li><strong>Debug</strong>：开发调试期间的详细信息</li>
+<li><strong>Trace</strong>：最详细的日志信息，通常用于问题诊断</li>
+</ul>
+<p>在这个案例中，获取标签列表失败不会影响核心业务流程，因此使用Warning级别更为恰当。这种区分有助于运维人员快速定位真正严重的问题，避免在大量Error日志中遗漏关键错误。</p>
+<p>下面这个图是高赞回答的博主贴的，很清晰的说明了何时使用什么级别的日志。</p>
+<p><img src="https://tuchuang-1258410772.cos.ap-guangzhou.myqcloud.com/log_leve.png" alt="image.png">
+The remaining content of your post.</p>
+
+        
+      </section>
+
+      
+
+      
+    </article>
+  </div>
+
+  <div
+    x-data="tocHighlighter()"
+    @scroll.window="debouncedScroll"
+    class="hidden lg:flex lg:flex-col lg:items-end lg:self-start"
+  >
+    
+  </div>
+</div>
+
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>© 2026 huanjian&#39;s blog</p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
     { name: 'sunny', status: 'n' },
     { name: 'moon', status: 'y' },
     { name: 'desktop', status: 'auto' }
-  ] }" class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"><template x-for="icon in icons"><div role=button tabindex=0 :aria-label="'Select ' + icon.name + ' mode'" class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary" :class="$store.darkMode.icon() === icon.name && 'bg-primary'" @click=$store.darkMode.toggle(icon.status)><ion-icon :name="`${icon.name}-outline`" class=group-hover:text-primary-content :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"></ion-icon></div></template></div></footer></div></div><div class=back><div class=container><div class="dream-grid dream-grid-about"><div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column"><article class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"><div class=card-body><div class=card-title>Me</div><div class="prose dark:prose-invert"><p>你好，我是火箭。火箭是我在在公司和互联网上使用的花名。
-我的主要工作是开发 Windows 客户端软件，技术栈以 WPF + C# 为主。业余时间会折腾一些小项目，通常是 React + FastAPI 的组合，先现生活在杭州，活动范围主要是江浙沪这块。独立博客看得多了，也逐渐被激发了表达欲，注册域名，做了我的独立博客。</p></div></div></article></div><div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column"><article class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"><div class=card-body><div class=card-title>爱好</div><div class="prose dark:prose-invert"><ul><li>三国演义：从大二开始听评书版的《三国演义》，现在主要是作为睡前小故事来听(我估计是第七八遍了)</li><li>写代码：没错，写代码也是我的爱好。只要出门超过半天，我基本都会背着笔记本，随时可能进入“编码模式”。</li><li>健身：曾经的爱好。结婚之后就逐渐被抛弃了 🤷,结婚一年涨了10斤。</li><li>看电影：后续可能会写影评。</li><li>探索新事物和工具：准备开一个主题，专门分享我接触到的各种新玩意儿。</li></ul></div></div></article></div><div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column"><article class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"><div class=card-body><div class=card-title>记录什么？</div><div class="prose dark:prose-invert"><ul><li><p>学习笔记</p></li><li><p>一些想法：记录日常思考，不一定有结论，更像是一种随手的表达。</p></li><li><p>旅游与随笔：旅行时的见闻与感受，以及偶尔的文字随笔。</p></li></ul></div></div></article></div><div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column"><article class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"><div class=card-body><div class=card-title>联系我</div><div class="prose dark:prose-invert"><ul><li><a href=mailto:huojian103@outlook.com target=_blank>huojian103@outlook.com</a></li></ul></div></div></article></div></div><footer class="flex justify-between items-center gap-2 px-4 py-12"><div><p>© 2026 huanjian's blog</p><p class=text-sm>🌱
-<span class=text-base-content/60>Powered by <a class=hover:underline href=https://gohugo.io/ target=_blank>Hugo</a> with theme
-<a class=hover:underline href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</span></p></div><div x-data="{ icons: [
+  ] }"
+  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid dream-grid-about">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>你好，我是火箭。火箭是我在在公司和互联网上使用的花名。
+我的主要工作是开发 Windows 客户端软件，技术栈以 WPF + C# 为主。业余时间会折腾一些小项目，通常是 React + FastAPI 的组合，先现生活在杭州，活动范围主要是江浙沪这块。独立博客看得多了，也逐渐被激发了表达欲，注册域名，做了我的独立博客。</p>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">爱好</div>
+
+        <div class="prose dark:prose-invert">
+          <ul>
+<li>三国演义：从大二开始听评书版的《三国演义》，现在主要是作为睡前小故事来听(我估计是第七八遍了)</li>
+<li>写代码：没错，写代码也是我的爱好。只要出门超过半天，我基本都会背着笔记本，随时可能进入“编码模式”。</li>
+<li>健身：曾经的爱好。结婚之后就逐渐被抛弃了 🤷,结婚一年涨了10斤。</li>
+<li>看电影：后续可能会写影评。</li>
+<li>探索新事物和工具：准备开一个主题，专门分享我接触到的各种新玩意儿。</li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">记录什么？</div>
+
+        <div class="prose dark:prose-invert">
+          <ul>
+<li>
+<p>学习笔记</p>
+</li>
+<li>
+<p>一些想法：记录日常思考，不一定有结论，更像是一种随手的表达。</p>
+</li>
+<li>
+<p>旅游与随笔：旅行时的见闻与感受，以及偶尔的文字随笔。</p>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">联系我</div>
+
+        <div class="prose dark:prose-invert">
+          <ul>
+<li><a href="mailto:huojian103@outlook.com" target="_blank">huojian103@outlook.com</a>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+
+  
+</div>
+
+            
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>© 2026 huanjian&#39;s blog</p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
     { name: 'sunny', status: 'n' },
     { name: 'moon', status: 'y' },
     { name: 'desktop', status: 'auto' }
-  ] }" class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"><template x-for="icon in icons"><div role=button tabindex=0 :aria-label="'Select ' + icon.name + ' mode'" class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary" :class="$store.darkMode.icon() === icon.name && 'bg-primary'" @click=$store.darkMode.toggle(icon.status)><ion-icon :name="`${icon.name}-outline`" class=group-hover:text-primary-content :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"></ion-icon></div></template></div></footer></div></div></div></div><script>window.lightTheme=null,window.darkTheme=null</script><script src=https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin=anonymous></script><script src=/js/grid.min.js></script><script src=/js/main.min.js></script><script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0 integrity="sha256-4sbTzmCCW9LGrIh5OsN8V5Pfdad1F1MwhLAOyXKnsE0=" crossorigin=anonymous></script><script>format();function format(){document.querySelectorAll('span[data-format="luxon"]').forEach(e=>{const t=e.textContent;e.textContent=luxon.DateTime.fromISO(t,{locale:"zh"}).toFormat("yyyy年MM月dd日")})}</script><script src=/js/toc.min.js></script><script type=module src=https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js integrity="sha256-/IFmi82bIhdYWctu0UddSlJqpnzWm7Vh2C4CM32wF/k=" crossorigin=anonymous></script><script nomodule src=https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.js integrity="sha256-mr7eJMX3VC3F7G32mk4oWp1C6a2tlMYxUdptfT7uKI8=" crossorigin=anonymous></script></body></html>
+  ] }"
+  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme =  null 
+  window.darkTheme =  null 
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+  <script src="/js/grid.js"></script>
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+  <script
+  src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"
+  integrity="sha256-4sbTzmCCW9LGrIh5OsN8V5Pfdad1F1MwhLAOyXKnsE0="
+  crossorigin="anonymous"
+></script>
+<script>
+  format()
+
+  function format() {
+    document.querySelectorAll('span[data-format="luxon"]').forEach(el => {
+      const date = el.textContent
+
+      el.textContent = luxon.DateTime.fromISO(date, { locale: "zh" }).toFormat("yyyy年MM月dd日")
+    })
+  }
+</script>
+
+
+
+
+
+
+
+<script src="/js/toc.js"></script>
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js" integrity="sha256-/IFmi82bIhdYWctu0UddSlJqpnzWm7Vh2C4CM32wF/k=" crossorigin="anonymous"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.js" integrity="sha256-mr7eJMX3VC3F7G32mk4oWp1C6a2tlMYxUdptfT7uKI8=" crossorigin="anonymous"></script>
+  </body>
+</html>
