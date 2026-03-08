@@ -6,7 +6,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【新概念】指纹浏览器 | huanjian&#39;s blog</title>
+    <title>【新概念】指纹浏览器 | 火箭的博客</title>
 
     
 
@@ -27,7 +27,7 @@
 
 
 <meta property="og:url" content="http://localhost:1313/posts/%E6%96%B0%E6%A6%82%E5%BF%B5%E6%8C%87%E7%BA%B9%E6%B5%8F%E8%A7%88%E5%99%A8/">
-  <meta property="og:site_name" content="huanjian&#39;s blog">
+  <meta property="og:site_name" content="火箭的博客">
   <meta property="og:title" content="【新概念】指纹浏览器">
   <meta property="og:description" content="指纹浏览器（Fingerprint Browser）通过为每个浏览器环境生成或模拟独立的设备指纹，实现多账号隔离与防检测，常用于多开、跨境电商与营销场景。">
   <meta property="og:locale" content="zh_Hans">
@@ -86,7 +86,10 @@
     <div id="dream-global-bg"></div>
 
     
-<nav class="mt-4 lg:mt-8 py-4">
+<nav x-data="{ isSticky: false }"
+  x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 30 })"
+  class="sticky top-0 z-30 mt-4 lg:mt-8 py-4"
+  :class="{ 'bg-base-100 shadow-lg dark:border-b dark:border-base-content/30': isSticky }">
 
   
   <div class="container flex justify-between px-4">
@@ -94,14 +97,27 @@
     <section class="flex items-center gap-4">
       <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="翻转一下！">
         <div class="h-10 rounded-full">
-          <img src="/" alt="" />
+          <img src="https://github.com/huojian-jan.png" alt="火箭的博客" />
         </div>
       </div>
 
       
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          火箭的博客
+        </a>
+        
+        
+        <div class="text-base-content/60 text-sm">Talent is enduring patience.</div>
+        
+      </div>
+      
     </section>
 
     
+    
+      
     
 
     <div class="dropdown dropdown-end sm:hidden">
@@ -141,6 +157,15 @@
 
 
 
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/huojian-jan" target="_blank" title="GitHub">
+    
+    <ion-icon name="logo-github"></ion-icon>
+    
+    GitHub
+  </a>
+</li>
+
 
 
 
@@ -175,34 +200,26 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-    
-
-
-
 <li>
-  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/huojian-jan" target="_blank" title="GitHub">
-    
-    <ion-icon name="logo-github"></ion-icon>
-    
-    GitHub
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/index.xml" title="RSS">
+    <ion-icon name="logo-rss"></ion-icon>
+    RSS
   </a>
 </li>
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -212,6 +229,8 @@
     <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
       
 
+      
+      
       
       
 
@@ -236,47 +255,6 @@
 
 
 
-
-
-      
-      
-<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/posts" title="归档">
-  <ion-icon class="group-hover:text-primary-content" name="archive"></ion-icon>
-</a>
-
-
-      
-      
-<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="所有分类">
-  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
-</a>
-
-
-      
-      
-<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="所有标签">
-  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
-</a>
-
-
-      
-
-      
-      
-
-
-
-
-
-
-
-
-
-  
-    
-
-
-
   
   <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://github.com/huojian-jan" target="_blank" title="GitHub">
     <ion-icon class="group-hover:text-primary-content" name="logo-github"></ion-icon>
@@ -285,11 +263,70 @@
 
 
 
-  
-
-
       
 
+      <div class="dropdown dropdown-end dropdown-hover">
+        <div tabindex="0" role="button" class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" aria-label="Select an option">
+          <ion-icon class="group-hover:text-primary-content text-xl" name="menu"></ion-icon>
+        </div>
+        <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-1 shadow-xl">
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/index.xml" title="RSS">
+    <ion-icon name="logo-rss"></ion-icon>
+    RSS
+  </a>
+</li>
+
+
+          
+
+          
+          
+
+
+
+
+
+
+
+
+
+
+          
+        </ul>
+      </div>
       
     </section>
   </div>
@@ -389,6 +426,8 @@
 
       <section id="dream-single-post-content" itemprop="articleBody">
         
+          <img class="w-full z-30" src="/img/cover.jpg" alt="【新概念】指纹浏览器" />
+        
 
         <p>指纹浏览器（Fingerprint Browser）通过为每个浏览器环境生成或模拟独立的设备指纹，实现多账号隔离与防检测，常用于多开、跨境电商与营销场景。</p>
 <h2 id="什么是指纹浏览器">什么是指纹浏览器</h2>
@@ -413,7 +452,58 @@
       </section>
 
       
+      <div class="divider"></div>
+      <div class="flex flex-col md:flex-row justify-between gap-4 py-4">
+        
+        <a role="button" class="btn btn-outline h-12" href="/posts/%E6%96%B0%E6%A6%82%E5%BF%B5%E9%87%91%E4%B8%9D%E9%9B%80%E6%B5%8B%E8%AF%95/" title="【新概念】金丝雀测试">
+          <ion-icon name="chevron-back"></ion-icon>
+          <div class="inline-flex flex-col items-start">
+            <span class="text-base-content/60 text-xs font-normal">上一页</span>
+            <span class="max-w-48 truncate">【新概念】金丝雀测试</span>
+          </div>
+        </a>
+        
 
+        
+        <a role="button" class="btn btn-outline h-12" href="/posts/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E7%BB%B4%E5%90%BE%E5%B0%94%E8%AF%AD%E5%8D%9A%E5%AE%A2/" title="我的第一篇维吾尔语博文">
+          <div class="inline-flex flex-col items-end">
+            <span class="text-base-content/60 text-xs font-normal">下一页</span>
+            <span class="max-w-48 truncate">我的第一篇维吾尔语博文</span>
+          </div>
+          <ion-icon name="chevron-forward"></ion-icon>
+        </a>
+        
+      </div>
+      
+
+      
+      <div class="divider"></div>
+
+      <section class="space-y-4">
+        
+
+
+<template x-if="['localhost', '127.0.0.1'].indexOf(window.location.hostname) == -1">
+  <article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="huojian-jan/huojian-jan.github.io"
+      issue-term="og:title"
+      theme="github-light"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </article>
+</template>
+
+
+
+
+
+
+
+
+      </section>
       
     </article>
   </div>
@@ -424,6 +514,14 @@
     class="hidden lg:flex lg:flex-col lg:items-end lg:self-start"
   >
     
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是指纹浏览器">什么是指纹浏览器</a></li>
+    <li><a href="#典型用途">典型用途</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+    
   </div>
 </div>
 
@@ -433,7 +531,7 @@
 
   <div>
   
-  <p>© 2026 huanjian&#39;s blog</p>
+  <p>© 2026 火箭的博客</p>
   
 
   
@@ -490,11 +588,16 @@
       class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
     >
       <div class="card-body">
-        <div class="card-title">Me</div>
+        <div class="card-title">爱好</div>
 
         <div class="prose dark:prose-invert">
-          <p>你好，我是火箭。火箭是我在在公司和互联网上使用的花名。
-我的主要工作是开发 Windows 客户端软件，技术栈以 WPF + C# 为主。业余时间会折腾一些小项目，通常是 React + FastAPI 的组合，先现生活在杭州，活动范围主要是江浙沪这块。独立博客看得多了，也逐渐被激发了表达欲，注册域名，做了我的独立博客。</p>
+          <ul>
+<li>三国演义：从大二开始听评书版的《三国演义》，现在主要是作为睡前小故事来听(我估计是第七八遍了)</li>
+<li>写代码：没错，写代码也是我的爱好。只要出门超过半天，我基本都会背着笔记本，随时可能进入“编码模式”。</li>
+<li>健身：曾经的爱好。结婚之后就逐渐被抛弃了 🤷,结婚一年涨了10斤。</li>
+<li>看电影：后续可能会写影评。</li>
+<li>探索新事物和工具：准备开一个主题，专门分享我接触到的各种新玩意儿。</li>
+</ul>
 
         </div>
       </div>
@@ -506,15 +609,36 @@
       class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
     >
       <div class="card-body">
-        <div class="card-title">爱好</div>
+        <div class="card-title">关于我</div>
 
         <div class="prose dark:prose-invert">
-          <ul>
-<li>三国演义：从大二开始听评书版的《三国演义》，现在主要是作为睡前小故事来听(我估计是第七八遍了)</li>
-<li>写代码：没错，写代码也是我的爱好。只要出门超过半天，我基本都会背着笔记本，随时可能进入“编码模式”。</li>
-<li>健身：曾经的爱好。结婚之后就逐渐被抛弃了 🤷,结婚一年涨了10斤。</li>
-<li>看电影：后续可能会写影评。</li>
-<li>探索新事物和工具：准备开一个主题，专门分享我接触到的各种新玩意儿。</li>
+          <h3 id="-你好我是-huojian-火箭">👋 你好，我是 huojian (火箭)</h3>
+<p>欢迎来到我的个人博客！建立这个小站的初衷，是想在浩瀚的互联网中拥有一块属于自己的“数字花园”。我经常从各类优秀的博客中汲取养分，现在，我也想成为那个输出和分享的人。</p>
+<p>这里没有刻板的文章更新 KPI，更多的是我个人的技术沉淀、学习笔记以及生活碎片的真实记录。</p>
+<h4 id="-关于我与我的技术栈">👨‍💻 关于我与我的技术栈</h4>
+<p>我是一名客户端软件工程师，日常与代码和系统架构打交道。在技术探索的道路上，我享受解决复杂问题带来的成就感，也喜欢折腾各种能提升幸福感的工具。</p>
+<p>在这里，你可能会看到我分享以下内容：</p>
+<ul>
+<li><strong>💻 开发与架构探讨：</strong> 探讨 WPF/C# 领域的开发经验、代码质量优化，以及诸如客户端热修复 (Hotfix) 系统设计等我在实际项目中遇到并解决的挑战。</li>
+<li><strong>🛠️ 工作流与跨平台折腾：</strong> 记录我游走在 Windows 与 macOS 环境下的效率心得。从外设配置到好用的跨平台开发工具，分享如何打造顺手的生产力环境。</li>
+<li><strong>🐳 自托管与数字生活：</strong> 我是个“自建服务”爱好者。会不定期掉落关于 Docker 部署、云服务器折腾指南，以及如何搭建属于自己的 RSS 阅读环境等教程。</li>
+<li><strong>📝 学习笔记与自我精进：</strong> 记录各种技术学习心得。同时，我也在持续死磕英语，努力提升口语和写作能力，告别“哑巴英语”，相关的学习路径和思考也会记录在这里。</li>
+</ul>
+<h4 id="-我的理念">💡 我的理念</h4>
+
+
+
+  <blockquote>
+    <p><strong>&ldquo;Talent is enduring patience.&rdquo;</strong> (才能即是长久的忍耐)</p>
+  </blockquote>
+
+<p>我相信持续输出的力量。无论是深度的技术解析，还是一个简单的开发踩坑记录，亦或是一篇普通的生活随笔，都是打造个人 IP 与技术影响力的基石。</p>
+<h4 id="-建立连接">📬 建立连接</h4>
+<p>非常高兴能在这里与同样喜欢写代码、喜欢阅读的你相遇。如果你对我的文章有共鸣，或者想交流技术与生活，欢迎随时找我：</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com/huojian-jan" target="_blank">@huojian-jan</a>
+</li>
+<li><strong>RSS 订阅:</strong> 欢迎通过博客右上角的 RSS 订阅我的最新文章。</li>
 </ul>
 
         </div>
@@ -579,7 +703,7 @@
 
   <div>
   
-  <p>© 2026 huanjian&#39;s blog</p>
+  <p>© 2026 火箭的博客</p>
   
 
   
@@ -628,8 +752,8 @@
     </div>
 
     <script>
-  window.lightTheme =  null 
-  window.darkTheme =  null 
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
 </script>
 
 
@@ -673,6 +797,16 @@
 
 <script src="/js/toc.js"></script>
 
+
+  
+    <script type="module">
+      import mediumZoom from 'https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/+esm';
+      mediumZoom('#dream-single-post-content img', {
+        background: 'oklch(var(--b1))',
+        margin: 24,
+      })
+    </script>
+  
 
 
 
